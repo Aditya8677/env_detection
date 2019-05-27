@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   grid_map_core
   grid_map_msgs
   grid_map_cv
+  grid_map_ros
   sensor_msgs
   nav_msgs
   std_msgs
@@ -42,6 +43,7 @@ catkin_package(
     grid_map_core
     grid_map_msgs
     grid_map_cv
+    grid_map_ros
     sensor_msgs
     nav_msgs
     std_msgs
@@ -67,6 +69,7 @@ include_directories(
 
 ## Declare a cpp library
 add_library(${PROJECT_NAME}
+src/EnvDetection.cpp
 # src/GridMapRosConverter.cpp
 #  src/GridMapMsgHelpers.cpp
 #  src/PolygonRosConverter.cpp
