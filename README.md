@@ -1,2 +1,2 @@
-# multilayer_map
-Multilayer map for SLAM.
+# Environment detection system
+Environment detection system for mobile robot

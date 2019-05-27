@@ -1,23 +1,18 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>grid_map</name>
-  <version>1.6.1</version>
-  <description>Meta-package for the universal grid map library.</description>
-  <maintainer email="pfankhauser@anybotics.com">Péter Fankhauser</maintainer>
+  <name>env_detection</name>
+  <version>0.1.0</version>
+  <description>
+    Meta-package for the environment detection system and library.
+  </description>
+  <maintainer email="neduchal@kky.zcu.cz">Petr Neduchal</maintainer>
   <license>BSD</license>
-  <url type="website">http://github.com/ethz-asl/grid_map</url>
-  <url type="bugtracker">http://github.com/ethz-asl/grid_map/issues</url>
-  <author email="pfankhauser@anybotics.com">Péter Fankhauser</author>
+  <url type="website">http://github.com/neduchal/env_detection</url>
+  <url type="bugtracker">http://github.com/env_detection/issues</url>
+  <author email="neduchal@kky.zcu.cz">Petr Neduchal</author>
   <buildtool_depend>catkin</buildtool_depend>
-  <exec_depend>grid_map_core</exec_depend>
-  <exec_depend>grid_map_ros</exec_depend>
-  <exec_depend>grid_map_cv</exec_depend>
-  <exec_depend>grid_map_msgs</exec_depend>
-  <exec_depend>grid_map_filters</exec_depend>
-  <exec_depend>grid_map_visualization</exec_depend>
-  <exec_depend>grid_map_rviz_plugin</exec_depend>
-  <exec_depend>grid_map_loader</exec_depend>
-  <exec_depend>grid_map_demos</exec_depend>
+  <exec_depend>env_detection_core</exec_depend>
+  <exec_depend>env_detection_msgs</exec_depend>
   <export>
     <metapackage />
   </export>
