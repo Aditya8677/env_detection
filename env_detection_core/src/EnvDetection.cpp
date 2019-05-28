@@ -1,4 +1,4 @@
-#include "env_detection_core/EnvDetection.hpp"
+#include <env_detection_core/EnvDetection.hpp>
 
 using namespace grid_map;
 
@@ -15,6 +15,7 @@ EnvDetection::EnvDetection(ros::NodeHandle& nodeHandle, bool& success)
 
     inputMapSubscriber_ = nodeHandle_.subscribe(inputMapTopic_, 1, &EnvDetection::inputMapCallback, this);
     sensorsSubscriber_ = nodeHandle_.subscribe(sensorsTopic_, 10, &EnvDetection::sensorsCallback, this);
+    gridMapPublisher_ = nodeHandle_.advertise<grid_map_msgs::GridMap>(gridMapTopic_, 1, true);
 
     map_ = GridMap({"base", "temperature", "humidity", "air_pressure", "uv_voltage", "uv_light", "roof"});
     map_.setBasicLayers({"base"});
@@ -53,6 +54,7 @@ bool EnvDetection::readParameters()
     }       
     nodeHandle_.param<std::string>("base_frame", baseFrame_, "base_link");
     nodeHandle_.param<std::string>("map_frame", mapFrame_, "map");
+    nodeHandle_.param<std::string>("grid_map_topic", gridMapTopic_, "env_grid_map");
 
     return true;
 }
@@ -92,6 +94,16 @@ void EnvDetection::inputMapCallback(const nav_msgs::OccupancyGrid& msg)
             map_.getSize()(0), map_.getSize()(1), map_.getPosition().x(), map_.getPosition().y(), map_.getFrameId().c_str());
         if (!setup_done_) setup_done_ = true;
     }    
+}
+
+void EnvDetection::publishGridMap()
+{
+    ros::Time time = ros::Time::now();
+    map_.setTimestamp(time.toNSec());
+    grid_map_msgs::GridMap msg;
+    converter_.toMessage(map_, msg);
+    gridMapPublisher_.publish(msg);
+    ROS_INFO_THROTTLE(1.0, "Grid map (timestamp %f) published.", msg.info.header.stamp.toSec());
 }
 
 }

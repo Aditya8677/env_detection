@@ -68,11 +68,9 @@ include_directories(
 )
 
 ## Declare a cpp library
-add_library(${PROJECT_NAME}
+add_executable(${PROJECT_NAME}
+src/env_detection_node.cpp
 src/EnvDetection.cpp
-# src/GridMapRosConverter.cpp
-#  src/GridMapMsgHelpers.cpp
-#  src/PolygonRosConverter.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
