@@ -20,7 +20,7 @@ EnvDetection::EnvDetection(ros::NodeHandle& nodeHandle, bool& success)
         return;
     }
 
-    enviValueSubscriber_ = nodeHandle_.subscribe(envValueTopic_, 100, &EnvDetection::envValueCallback, this);
+    envValueSubscriber_ = nodeHandle_.subscribe(envValueTopic_, 100, &EnvDetection::envValueCallback, this);
     inputMapSubscriber_ = nodeHandle_.subscribe(inputMapTopic_, 1, &EnvDetection::inputMapCallback, this);
     sensorsSubscriber_ = nodeHandle_.subscribe(sensorsTopic_, 10, &EnvDetection::sensorsCallback, this);
     gridMapPublisher_ = nodeHandle_.advertise<grid_map_msgs::GridMap>(gridMapTopic_, 1, true);
@@ -67,7 +67,7 @@ bool EnvDetection::readParameters()
     return true;
 }
 
-void EnvDetection::environmentValueCallback(const env_detection_msgs::EnvValue& msg)
+void EnvDetection::envValueCallback(const env_detection_msgs::EnvValue& msg)
 {
     if (!setup_done_) return;
     if (!map_.exists(msg.layer)) {

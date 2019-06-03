@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>env_detection_sensors</name>
+  <name>env_detection_core</name>
   <version>0.1.0</version>
-  <description>Sensor package of Environment Detection System. An example package for processing data from sensors</description>
+  <description>Core package of Environment Detection System.</description>
   <maintainer email="neduchal@kky.zcu.cz">Petr Neduchal</maintainer>
   <license>BSD</license>
   <url type="website">http://github.com/neduchal/env_detection</url>

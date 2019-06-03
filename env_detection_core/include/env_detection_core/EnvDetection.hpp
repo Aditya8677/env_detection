@@ -47,7 +47,6 @@ class EnvDetection
     
     ros::NodeHandle& nodeHandle_;
 
-    //std::string sensorsTopic_;
     std::string envValueTopic_;
     std::string inputMapTopic_;
     std::string inputMapMetaDataTopic_;
@@ -56,7 +55,6 @@ class EnvDetection
     std::string baseFrame_;
     std::string mapFrame_;
 
-    //ros::Subscriber sensorsSubscriber_;
     ros::Subscriber envValueSubscriber_;
     ros::Subscriber inputMapSubscriber_;
 
