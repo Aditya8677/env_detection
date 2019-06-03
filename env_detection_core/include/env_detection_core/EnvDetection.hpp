@@ -1,19 +1,30 @@
-/* */
-
+/**
+ *  Environment Detection System (EDS)
+ * 
+ *  Class EnvDetection
+ * 
+ *  Main Class of the EDS
+ * 
+ *  @author Petr Neduchal
+ *  @mail neduchal@kky.zcu.cz
+ *  
+ */
 #pragma once
 
+// CPP Headers
 #include <string>
+// ROS headers
 #include <ros/ros.h>
 #include <grid_map_ros/grid_map_ros.hpp>
-//#include <grid_map_ros/GridMapRosConverter.hpp>
 #include <tf2_ros/transform_listener.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <nav_msgs/MapMetaData.h>
 #include <geometry_msgs/Transform.h>
 #include <geometry_msgs/TransformStamped.h>
-#include <env_detection_msgs/Sensors.h>
+//#include <env_detection_msgs/Sensors.h>
+#include <env_detection_msgs/EnvValue.h>
 
-using namespace grid_map;
+using namespace grid_map; // Namespace of GRID MAP
 
 namespace env_detection {
 
@@ -27,7 +38,8 @@ class EnvDetection
 
     bool readParameters();
 
-    void sensorsCallback(const env_detection_msgs::Sensors& msg);
+    //void sensorsCallback(const env_detection_msgs::Sensors& msg);
+    void envValueCallback(const env_detection_msgs::EnvValue& msg);
     void inputMapCallback(const nav_msgs::OccupancyGrid& msg);
     void publishGridMap();
     
@@ -35,7 +47,8 @@ class EnvDetection
     
     ros::NodeHandle& nodeHandle_;
 
-    std::string sensorsTopic_;
+    //std::string sensorsTopic_;
+    std::string envValueTopic_;
     std::string inputMapTopic_;
     std::string inputMapMetaDataTopic_;
     std::string gridMapTopic_;
@@ -43,7 +56,8 @@ class EnvDetection
     std::string baseFrame_;
     std::string mapFrame_;
 
-    ros::Subscriber sensorsSubscriber_;
+    //ros::Subscriber sensorsSubscriber_;
+    ros::Subscriber envValueSubscriber_;
     ros::Subscriber inputMapSubscriber_;
 
     ros::Publisher gridMapPublisher_;

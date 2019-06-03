@@ -16,8 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   Sensors.msg
-#  GridMapInfo.msg
-#  GridMap.msg
+  EnvValue.msg
 )
 
 ## Generate services in the 'srv' folder
