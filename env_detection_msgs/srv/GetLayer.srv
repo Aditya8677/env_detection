@@ -1,0 +1,3 @@
+string layer
+---
+grid_map_msgs/GridMap layer_data

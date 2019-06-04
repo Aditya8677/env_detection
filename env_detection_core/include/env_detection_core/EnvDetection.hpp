@@ -21,7 +21,6 @@
 #include <nav_msgs/MapMetaData.h>
 #include <geometry_msgs/Transform.h>
 #include <geometry_msgs/TransformStamped.h>
-//#include <env_detection_msgs/Sensors.h>
 #include <env_detection_msgs/EnvValue.h>
 
 using namespace grid_map; // Namespace of GRID MAP
@@ -38,7 +37,6 @@ class EnvDetection
 
     bool readParameters();
 
-    //void sensorsCallback(const env_detection_msgs::Sensors& msg);
     void envValueCallback(const env_detection_msgs::EnvValue& msg);
     void inputMapCallback(const nav_msgs::OccupancyGrid& msg);
     void publishGridMap();
