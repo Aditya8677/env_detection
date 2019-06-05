@@ -20,12 +20,11 @@ add_message_files(
 )
 
 ## Generate services in the 'srv' folder
-#add_service_files(
-#  FILES
-#  GetGridMap.srv
-#  GetGridMapInfo.srv
-#  ProcessFile.srv
-#)
+add_service_files(
+  FILES
+  GetLayers.srv
+  GetLayer.srv
+)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(

@@ -22,6 +22,8 @@
 #include <geometry_msgs/Transform.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <env_detection_msgs/EnvValue.h>
+#include <env_detection_msgs/GetLayers.h>
+#include <env_detection_msgs/GetLayer.h>
 
 using namespace grid_map; // Namespace of GRID MAP
 
@@ -39,6 +41,8 @@ class EnvDetection
 
     void envValueCallback(const env_detection_msgs::EnvValue& msg);
     void inputMapCallback(const nav_msgs::OccupancyGrid& msg);
+    void getLayers(env_detection_msgs::GetLayers::Request &req, env_detection_msgs::GetLayers::Response &res);
+    void getLayer(env_detection_msgs::GetLayer::Request &req, env_detection_msgs::GetLayer::Response &res);
     void publishGridMap();
     
     private:

@@ -102,3 +102,17 @@ void EnvDetection::publishGridMap()
 }
 
 }
+void EnvDetection::getLayers(env_detection_msgs::GetLayers::Request &req, env_detection_msgs::GetLayers::Response &res)
+{
+    std::vector<std::string>& layers = map_.getLayers();
+    for(std::size_t i=0; i < layers.size(); ++i)
+    {
+        res.layers.pushBack(layers[i]);
+    }
+    return;
+}
+
+void getLayer(env_detection_msgs::GetLayer::Request &req, env_detection_msgs::GetLayer::Response &res)
+{
+
+}
