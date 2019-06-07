@@ -101,18 +101,34 @@ void EnvDetection::publishGridMap()
     ROS_INFO_THROTTLE(1.0, "Grid map (timestamp %f) published.", msg.info.header.stamp.toSec());
 }
 
-}
+
 void EnvDetection::getLayers(env_detection_msgs::GetLayers::Request &req, env_detection_msgs::GetLayers::Response &res)
 {
-    std::vector<std::string>& layers = map_.getLayers();
+    std::vector<std::string> layers = map_.getLayers();
     for(std::size_t i=0; i < layers.size(); ++i)
     {
-        res.layers.pushBack(layers[i]);
+        res.layers.push_back(layers[i]);
     }
-    return;
 }
 
-void getLayer(env_detection_msgs::GetLayer::Request &req, env_detection_msgs::GetLayer::Response &res)
+void EnvDetection::getLayer(env_detection_msgs::GetLayer::Request &req, env_detection_msgs::GetLayer::Response &res)
 {
+    GridMap map_msg = GridMap();
+    grid_map_msgs::GridMap msg;
+
+    if (map_.exists(req.layer))
+    {
+        std::vector<std::string> layers;
+        layers.push_back("base");
+        layers.push_back(req.layer);
+        res.valid = true;
+        map_msg.addDataFrom(map_, true, true, false, layers);
+        converter_.toMessage(map_msg, msg);
+        res.map = msg;
+    } else
+    {
+        res.valid = false;
+    }
+}
 
 }

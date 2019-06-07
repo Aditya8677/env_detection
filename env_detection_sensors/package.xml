@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>env_detection_core</name>
+  <name>env_detection_sensors</name>
   <version>0.1.0</version>
   <description>Core package of Environment Detection System.</description>
   <maintainer email="neduchal@kky.zcu.cz">Petr Neduchal</maintainer>

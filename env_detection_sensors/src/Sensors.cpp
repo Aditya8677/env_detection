@@ -20,12 +20,12 @@ Sensors::Sensors(ros::NodeHandle& nodeHandle, bool& success)
     }
 
     sensorsSubscriber_ = nodeHandle_.subscribe(sensorsTopic_, 10, &Sensors::sensorsCallback, this);
-    sensorsPublisher_ = nodeHandle_.advertise<env_detection_msgs::EnvValue>(EnvValueTopic_, 100, true);
+    envValuePublisher_ = nodeHandle_.advertise<env_detection_msgs::EnvValue>(envValueTopic_, 100, true);
 
     success = true;
 }
 
-EnvDetection::~EnvDetection()
+Sensors::~Sensors()
 {
 }
 
@@ -47,34 +47,25 @@ bool Sensors::readParameters()
 
 void Sensors::sensorsCallback(const env_detection_msgs::Sensors& msg)
 {
-    map_.getIndex(position, indexPosition);
-    map_.at("temperature", indexPosition) = msg.temperature;
-    map_.at("humidity", indexPosition) = msg.humidity;
-    map_.at("air_pressure", indexPosition) = msg.air_pressure;
-    map_.at("uv_voltage", indexPosition) = msg.uv_voltage;
-    map_.at("uv_index", indexPosition) = msg.uv_index;
-    map_.at("roof", indexPosition) = msg.distance;
-
-    EnvValue message = EnvValue();
-    EnvValue.layer = "temperature";
-    EnvValue.value = msg.temperature;
-    envValuePublisher_.publish(EnvValue)
-    EnvValue.layer = "humidity";
-    EnvValue.value = msg.humidity;
-    envValuePublisher_.publish(EnvValue)
-    EnvValue.layer = "air_pressure";
-    EnvValue.value = msg.air_pressure;
-    envValuePublisher_.publish(EnvValue)
-    EnvValue.layer = "uv_voltage";
-    EnvValue.value = msg.uv_voltage;
-    envValuePublisher_.publish(EnvValue)
-    EnvValue.layer = "uv_index";
-    EnvValue.value = msg.uv_index;
-    envValuePublisher_.publish(EnvValue) 
-    EnvValue.layer = "roof";
-    EnvValue.value = msg.distance;
-    envValuePublisher_.publish(EnvValue)               
-
+    env_detection_msgs::EnvValue message = env_detection_msgs::EnvValue();
+    message.layer = "temperature";
+    message.value = msg.temperature;
+    envValuePublisher_.publish(message);
+    message.layer = "humidity";
+    message.value = msg.humidity;
+    envValuePublisher_.publish(message);
+    message.layer = "air_pressure";
+    message.value = msg.air_pressure;
+    envValuePublisher_.publish(message);
+    message.layer = "uv_voltage";
+    message.value = msg.uv_voltage;
+    envValuePublisher_.publish(message);
+    message.layer = "uv_index";
+    message.value = msg.uv_index;
+    envValuePublisher_.publish(message);
+    message.layer = "roof";
+    message.value = msg.distance;
+    envValuePublisher_.publish(message);
 }
 
 }
