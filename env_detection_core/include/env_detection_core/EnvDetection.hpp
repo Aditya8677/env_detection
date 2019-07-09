@@ -65,7 +65,7 @@ class EnvDetection
     tf2_ros::TransformListener *transformListener_;
     tf2_ros::Buffer transformBuffer_;
 
-    geometry_msgs::Transform pose_;
+    geometry_msgs::TransformStamped pose_;
 
     GridMap map_;
     GridMapRosConverter converter_;

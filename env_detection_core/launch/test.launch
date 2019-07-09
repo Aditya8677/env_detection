@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+  <launch>
+
+
+    <node pkg="env_detection_core" type="env_detection_core" name="eds_core_node" output="log" respawn="false" respawn_delay="0" />
+
+    <node pkg="env_detection_sensors" type="env_detection_sensors" name="sensors_node" output="log" respawn="false" respawn_delay="0" />
+
+
+   
+  <node pkg="grid_map_visualization" type="grid_map_visualization" name="grid_map_visualization" output="screen">
+    <rosparam command="load" file="$(find grid_map_demos)/config/tutorial_demo.yaml" />
+  </node>
+  <!-- Launch RViz with the demo configuration -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find grid_map_demos)/rviz/grid_map_demo.rviz" />     
+</launch>
+  

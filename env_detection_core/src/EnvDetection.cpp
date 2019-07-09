@@ -72,7 +72,7 @@ void EnvDetection::envValueCallback(const env_detection_msgs::EnvValue& msg)
     if (!map_.exists(msg.layer)) {
         map_.add(msg.layer);
     }    
-    Position position(pose_.translation.x, pose_.translation.y);
+    Position position(pose_.transform.translation.x, pose_.transform.translation.y);
     Index indexPosition;
     map_.getIndex(position, indexPosition);
     map_.at(msg.layer, indexPosition) = msg.value;
@@ -88,6 +88,15 @@ void EnvDetection::inputMapCallback(const nav_msgs::OccupancyGrid& msg)
         ROS_INFO("MAP -- size (%f x %f m), %i x %i cells -- center (%f, %f) -- frame %s", map_.getLength().x(), map_.getLength().y(),
             map_.getSize()(0), map_.getSize()(1), map_.getPosition().x(), map_.getPosition().y(), map_.getFrameId().c_str());
         if (!setup_done_) setup_done_ = true;
+        try 
+        {
+            pose_ = transformBuffer_.lookupTransform("map", "base_link", ros::Time(0));
+        } catch(tf2::TransformException &ex)
+        {
+            ROS_WARN("%s", ex.what());
+            ros::Duration(1.0).sleep();
+            continue;
+        }
     }    
 }
 
