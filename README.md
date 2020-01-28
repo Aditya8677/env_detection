@@ -1,7 +1,9 @@
 # Sytém pro detekci prostředí mobilního robotu
 Systém pro sběr dat o prostředí a jeho detekci za účelem rozpoznání umožňující změnu chování mobilního robotu.
 
-    Tato práce byla podpořena Ministerstvem školství mládeže a tělovýchovy České republiky, projekt číslo LTARF18017.
+## Poděkování
+
+Tato práce byla podpořena Ministerstvem školství mládeže a tělovýchovy České republiky, projekt číslo LTARF18017.
 
 # Environment detection system
 Environment detection system for mobile robot. The goal is to collect data to recognize the environment and adapt mobile robot behaviour.
@@ -10,14 +12,19 @@ Tested on Ubuntu 18.04 LTS with ROS Melodic
 
 
 ## System concept
-<img width=600px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/eds_concept.png" />
+<p align="center">
+<img width=300px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/eds_concept.png" />
+</p>
 
 ## Example map visualization
+<p align="center">
 <img width=600px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/map_example.png" />
+</p>
 
 ## Mobile robot used for testing
-<img width=600px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/thumper_cropped.png" />
-
+<p align="center">
+<img width=300px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/thumper_cropped.jpg" />
+</p>
 
 ## Dependencies for version 1.0.0
 
