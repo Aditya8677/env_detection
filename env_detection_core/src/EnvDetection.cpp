@@ -22,6 +22,7 @@ EnvDetection::EnvDetection(ros::NodeHandle& nodeHandle, bool& success)
 
     envValueSubscriber_ = nodeHandle_.subscribe(envValueTopic_, 100, &EnvDetection::envValueCallback, this);
     inputMapSubscriber_ = nodeHandle_.subscribe(inputMapTopic_, 1, &EnvDetection::inputMapCallback, this);
+    setLayerSubscriber_ = nodeHandle_.subscribe(setLayerTopic_, 10, &EnvDetection::setLayerCallback, this); 
     gridMapPublisher_ = nodeHandle_.advertise<grid_map_msgs::GridMap>(gridMapTopic_, 1, true);
 
     map_ = GridMap({"base"});
@@ -48,20 +49,20 @@ bool EnvDetection::readParameters()
         return false;
     }
 
-    if (!nodeHandle_.getParam("input_map_metadata_topic", inputMapMetaDataTopic_))
-    {
-        ROS_ERROR("Could not read parameter 'inputMapMetaDataTopic'.");
-        return false;
-    }
-
     if (!nodeHandle_.getParam("env_value_topic", envValueTopic_))
     {
-        ROS_ERROR("Could not read parameter 'sensorsTopic'.");
+        ROS_ERROR("Could not read parameter 'env_value_topic'.");
         return false;
     }  
+
+    if (!nodeHandle_.getParam("set_layer_topic", setLayerTopic_))
+    {
+        ROS_ERROR("Could not read parameter 'set_layer_topic'");
+        return false;
+    }
     nodeHandle_.param<std::string>("base_frame", baseFrame_, "base_link");
     nodeHandle_.param<std::string>("map_frame", mapFrame_, "map");
-    nodeHandle_.param<std::string>("grid_map_topic", gridMapTopic_, "env_grid_map");
+    nodeHandle_.param<std::string>("grid_map_topic", gridMapTopic_, "/grid_map");
 
     return true;
 }
@@ -75,7 +76,43 @@ void EnvDetection::envValueCallback(const env_detection_msgs::EnvValue& msg)
     Position position(pose_.transform.translation.x, pose_.transform.translation.y);
     Index indexPosition;
     map_.getIndex(position, indexPosition);
+    if (isnan(map_.at(msg.layer, indexPosition))) {
     map_.at(msg.layer, indexPosition) = msg.value;
+    map_.at(msg.layer, indexPosition-2) = msg.value;
+    map_.at(msg.layer, indexPosition-1) = msg.value;
+    map_.at(msg.layer, indexPosition+1) = msg.value;
+    map_.at(msg.layer, indexPosition+2) = msg.value;
+    map_.at(msg.layer, indexPosition+3) = msg.value;
+    map_.at(msg.layer, indexPosition-3) = msg.value;
+    } else{
+        map_.at(msg.layer, indexPosition) += msg.value;
+        map_.at(msg.layer, indexPosition-2) += msg.value;
+        map_.at(msg.layer, indexPosition-1) += msg.value;
+        map_.at(msg.layer, indexPosition+1) += msg.value;
+        map_.at(msg.layer, indexPosition+2) += msg.value;
+        map_.at(msg.layer, indexPosition+3) += msg.value;
+        map_.at(msg.layer, indexPosition-3) += msg.value;
+        map_.at(msg.layer, indexPosition) /= 2;
+        map_.at(msg.layer, indexPosition-2) /= 2;
+        map_.at(msg.layer, indexPosition-1) /= 2;
+        map_.at(msg.layer, indexPosition+1) /= 2;
+        map_.at(msg.layer, indexPosition+2) /= 2;
+        map_.at(msg.layer, indexPosition+3) /= 2;
+        map_.at(msg.layer, indexPosition-3) /= 2;               
+    }
+
+}
+
+void EnvDetection::getPose()
+{
+    try 
+    {
+        pose_ = transformBuffer_.lookupTransform("map", "base_link", ros::Time(0));
+    } catch(tf2::TransformException &ex)
+    {
+        ROS_WARN("%s", ex.what());
+        ros::Duration(1.0).sleep();
+    }  
 }
 
 void EnvDetection::inputMapCallback(const nav_msgs::OccupancyGrid& msg)
@@ -95,7 +132,6 @@ void EnvDetection::inputMapCallback(const nav_msgs::OccupancyGrid& msg)
         {
             ROS_WARN("%s", ex.what());
             ros::Duration(1.0).sleep();
-            continue;
         }
     }    
 }
@@ -108,6 +144,20 @@ void EnvDetection::publishGridMap()
     converter_.toMessage(map_, msg);
     gridMapPublisher_.publish(msg);
     ROS_INFO_THROTTLE(1.0, "Grid map (timestamp %f) published.", msg.info.header.stamp.toSec());
+}
+
+void EnvDetection::setLayerCallback(const grid_map_msgs::GridMap& msg)
+{
+    GridMap grid_map_layer = GridMap();
+    converter_.fromMessage(msg, grid_map_layer);
+    std::vector<std::string> layers = grid_map_layer.getLayers();
+    for(int i; i < layers.size(); i++)
+    {
+        if (layers[i].compare("base") > 0)
+        {
+            map_.add(layers[i], grid_map_layer.get(layers[i]));
+        }
+    }
 }
 
 

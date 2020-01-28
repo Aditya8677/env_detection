@@ -10,10 +10,16 @@ int main(int argc, char** argv)
     env_detection::EnvDetection envDetection(nodeHandle, success);
     if (!success) exit(1);
 
-    ros::Rate rate(5.0);
+    ros::Time current_time = ros::Time::now();
+    ros::Rate rate(20.0);
     while(nodeHandle.ok())
     {
-        envDetection.publishGridMap();
+        if ((ros::Time::now() - current_time).toSec() > 1)
+        {
+            envDetection.publishGridMap();
+            current_time = ros::Time::now();
+        }
+        envDetection.getPose();
         ros::spinOnce();
         rate.sleep();
     }

@@ -13,6 +13,7 @@
 
 // CPP Headers
 #include <string>
+#include <cmath>
 // ROS headers
 #include <ros/ros.h>
 #include <grid_map_ros/grid_map_ros.hpp>
@@ -43,7 +44,9 @@ class EnvDetection
     void inputMapCallback(const nav_msgs::OccupancyGrid& msg);
     void getLayers(env_detection_msgs::GetLayers::Request &req, env_detection_msgs::GetLayers::Response &res);
     void getLayer(env_detection_msgs::GetLayer::Request &req, env_detection_msgs::GetLayer::Response &res);
+    void setLayerCallback(const grid_map_msgs::GridMap& msg);
     void publishGridMap();
+    void getPose();
     
     private:
     
@@ -51,6 +54,7 @@ class EnvDetection
 
     std::string envValueTopic_;
     std::string inputMapTopic_;
+    std::string setLayerTopic_;
     std::string inputMapMetaDataTopic_;
     std::string gridMapTopic_;
 
@@ -59,6 +63,7 @@ class EnvDetection
 
     ros::Subscriber envValueSubscriber_;
     ros::Subscriber inputMapSubscriber_;
+    ros::Subscriber setLayerSubscriber_;
 
     ros::Publisher gridMapPublisher_;
 

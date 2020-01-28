@@ -49,23 +49,27 @@ void Sensors::sensorsCallback(const env_detection_msgs::Sensors& msg)
 {
     env_detection_msgs::EnvValue message = env_detection_msgs::EnvValue();
     message.layer = "temperature";
-    message.value = msg.temperature;
+    //message.value = msg.temperature;
+    //envValuePublisher_.publish(message);
+    
+    //message.layer = "humidity";
+    //message.value = msg.humidity;
+    //envValuePublisher_.publish(message);
+    //message.layer = "air_pressure";
+    //message.value = msg.air_pressure;
+    //envValuePublisher_.publish(message);
+    //message.layer = "roof";
+    message.value = msg.distance;
+    if (message.value > 300.0) return;
     envValuePublisher_.publish(message);
-    message.layer = "humidity";
-    message.value = msg.humidity;
-    envValuePublisher_.publish(message);
-    message.layer = "air_pressure";
-    message.value = msg.air_pressure;
-    envValuePublisher_.publish(message);
+   /*
     message.layer = "uv_voltage";
     message.value = msg.uv_voltage;
     envValuePublisher_.publish(message);
     message.layer = "uv_index";
     message.value = msg.uv_index;
     envValuePublisher_.publish(message);
-    message.layer = "roof";
-    message.value = msg.distance;
-    envValuePublisher_.publish(message);
+    */
 }
 
 }
