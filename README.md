@@ -1,9 +1,15 @@
+# Sytém pro detekci prostředí mobilního robotu
+Systém pro sběr dat o prostředí a jeho detekci za účelem rozpoznání umožňující změnu chování mobilního robotu.
+
+Tato práce byla podpořena Ministerstvem školství mládeže a tělovýchovy České republiky, projekt číslo LTARF18017.
+This work was supported by the Ministry of Education of the Czech Republic, project No. LTARF18017.
+
 # Environment detection system
-Environment detection system for mobile robot
+Environment detection system for mobile robot. The goal is to collect data to recognize the environment and adapt mobile robot behaviour.
 
 Tested on Ubuntu 18.04 LTS with ROS Melodic
 
-## Dependencies for version 0.1.0
+## Dependencies for version 1.0.0
 
 ### Grid map library
 no significant changes in the fork yet, better to use original ANYbotics version
@@ -30,12 +36,6 @@ There is an example launch file used for testing multiple sensors.
 
     roslaunch env_detection_core test.launch
 
-## Writing data acquisition node
 
-Data acquisition node is a node which takes data from sensor and then it publishes it to topic **`env_value_topic`** (e.g. /eds/env_value). See example in env_detection_sensors
 
-TODO
-
-## Writing data process node
-
-TODO
+This work was supported by the Ministry of Education of the Czech Republic, project No. LTARF18017.
