@@ -21,12 +21,11 @@ Tested on Ubuntu 18.04 LTS with ROS Melodic
 <img width=600px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/map_example.png" />
 </p>
 
+## Dependencies for version 1.0.0
 ## Mobile robot used for testing
 <p align="center">
 <img width=300px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/thumper_cropped.jpg" />
 </p>
-
-## Dependencies for version 1.0.0
 
 ### Grid map library
 no significant changes in the fork yet, better to use original ANYbotics version
