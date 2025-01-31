@@ -5,16 +5,16 @@ Systém pro sběr dat o prostředí a jeho detekci za účelem rozpoznání umo�
 
 Tato práce byla podpořena Ministerstvem školství mládeže a tělovýchovy České republiky, projekt číslo LTARF18017.
 
+## System concept
+<p align="center">
+<img width=300px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/eds_concept.png" />
+</p>
+
 # Environment detection system
 Environment detection system for mobile robot. The goal is to collect data to recognize the environment and adapt mobile robot behaviour.
 
 Tested on Ubuntu 18.04 LTS with ROS Melodic
 
-
-## System concept
-<p align="center">
-<img width=300px src="https://raw.githubusercontent.com/neduchal/env_detection/master/imgs/eds_concept.png" />
-</p>
 
 ## Example map visualization
 <p align="center">
